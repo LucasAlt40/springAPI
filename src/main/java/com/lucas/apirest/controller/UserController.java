@@ -22,10 +22,10 @@ public class UserController {
         return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }
 
-//    @GetMapping(value = "/{id}")
-//    public ResponseEntity<User> getUser(@PathVariable Long id) {
-//        return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
-//    }
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Optional> getUser(@PathVariable Long id) {
+        return new ResponseEntity<>(userRepository.findById(id), HttpStatus.OK);
+    }
 
     @PostMapping
     public User addUser(@RequestBody User user) {
