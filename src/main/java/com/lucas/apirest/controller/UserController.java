@@ -3,14 +3,12 @@ package com.lucas.apirest.controller;
 import com.lucas.apirest.model.User;
 import com.lucas.apirest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -19,17 +17,17 @@ public class UserController {
     UserRepository userRepository;
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Optional> getUser(@PathVariable Long id) {
-        return new ResponseEntity<>(userRepository.findById(id), HttpStatus.OK);
+    public Optional<User> getUser(@PathVariable Long id) {
+        return userRepository.findById(id);
     }
 
     @PostMapping
-    public User addUser(@RequestBody User user) {
-        return userRepository.save(user);
+    public void addUser(@RequestBody User user) {
+        userRepository.save(user);
     }
 }
